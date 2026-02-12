@@ -6,11 +6,17 @@
 <title>For My Wifeyy 💘</title>
 
 <style>
-body {
+html, body {
     margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+body {
     font-family: 'Courier New', cursive;
     background: #ffe6f0;
-    overflow-x: hidden;
+    position: relative;
 }
 
 /* HEADER */
@@ -39,6 +45,7 @@ body {
     display: flex;
     gap: 20px;
     white-space: nowrap;
+    width: max-content;
 }
 
 .polaroid {
@@ -69,18 +76,18 @@ body {
     100% { transform: translateX(0); }
 }
 
-/* CARD */
+/* CARD CONTAINER (FLEX CENTERED) */
 .card-container {
     position: absolute;
     top: 58%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    z-index: 10;
 }
 
+/* CARD */
 .card {
     width: 90%;
     max-width: 340px;
@@ -130,7 +137,7 @@ body {
 
 /* ENVELOPE MODE */
 .card.envelope {
-    position: fixed !important;
+    position: fixed;
     bottom: 100px;
     right: 20px;
     transform: scale(0.35);
@@ -258,13 +265,11 @@ body {
 </audio>
 
 <script>
-/* Random tilt */
 document.querySelectorAll('.polaroid').forEach(p => {
     let randomRotate = (Math.random() * 10 - 5);
     p.style.transform = "rotate(" + randomRotate + "deg)";
 });
 
-/* Flip */
 function flipCard() {
     const card = document.getElementById("mainCard");
     if (card.classList.contains("envelope")) {
@@ -273,44 +278,34 @@ function flipCard() {
     card.classList.toggle("open");
 }
 
-/* Shrink to envelope */
 function shrinkToEnvelope(event) {
     event.stopPropagation();
     const card = document.getElementById("mainCard");
     card.classList.remove("open");
     card.classList.add("envelope");
 
-    // Sparkle burst
     for (let i = 0; i < 15; i++) {
         const sparkle = document.createElement("div");
         sparkle.classList.add("sparkle");
         sparkle.innerHTML = "✨";
-        sparkle.style.left = (window.innerWidth - 80) + "px";
-        sparkle.style.bottom = "120px";
+        sparkle.style.right = "40px";
+        sparkle.style.bottom = "140px";
         document.body.appendChild(sparkle);
         setTimeout(() => sparkle.remove(), 1000);
     }
 }
 
-/* Days Counter */
 const startDate = new Date("June 7, 2024");
 const today = new Date();
-const diffTime = today - startDate;
-const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
 document.getElementById("daysCounter").innerText =
 diffDays + " days with my wifeyy 💖";
 
-/* Music */
 function toggleMusic() {
     const music = document.getElementById("bgMusic");
-    if (music.paused) {
-        music.play();
-    } else {
-        music.pause();
-    }
+    music.paused ? music.play() : music.pause();
 }
 
-/* Floating hearts */
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
