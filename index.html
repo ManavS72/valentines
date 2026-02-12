@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine 💘</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Courier New', cursive;
+    overflow: hidden;
+    background: #ffe6f0;
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    color: pink;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    0% {transform: translateY(100vh) scale(1);}
+    100% {transform: translateY(-10vh) scale(1.5);}
+}
+
+/* Slideshow */
+.slideshow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.slideshow img {
+    position: absolute;
+    width: 220px;
+    border: 8px solid white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    animation: fade 12s infinite;
+}
+
+@keyframes fade {
+    0% {opacity: 0;}
+    10% {opacity: 1;}
+    90% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+/* Card */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    width: 300px;
+    height: 200px;
+    perspective: 1000px;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.card.open .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.card-front {
+    background: #ff4d88;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+}
+
+.card-back {
+    background: white;
+    transform: rotateY(180deg);
+    padding: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="slideshow">
+    <!-- REPLACE these image links with your own uploaded images -->
+    <img src="photo1.jpg" style="top:10%; left:10%; animation-delay:0s;">
+    <img src="photo2.jpg" style="top:50%; left:60%; animation-delay:4s;">
+    <img src="photo3.jpg" style="top:20%; left:70%; animation-delay:8s;">
+</div>
+
+<div class="container">
+    <div class="card" onclick="this.classList.toggle('open')">
+        <div class="card-inner">
+            <div class="card-front">
+                💌 Click Me 💌
+            </div>
+            <div class="card-back">
+                <h3>Happy Valentine's Day ❤️</h3>
+                <p>
+                From the moment I met you,<br>
+                everything felt different.<br><br>
+                You make my world softer,<br>
+                brighter, and way more beautiful.<br><br>
+                Thank you for loving me.<br>
+                I choose you. Always. 💘
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+/* Floating hearts generator */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
