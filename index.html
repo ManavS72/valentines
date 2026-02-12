@@ -55,7 +55,6 @@ body {
     border-radius: 6px;
 }
 
-/* Row Positions */
 .row1 { top: 120px; animation: moveLeft 30s linear infinite; }
 .row2 { top: 270px; animation: moveRight 35s linear infinite; }
 .row3 { top: 420px; animation: moveLeft 40s linear infinite; }
@@ -87,8 +86,8 @@ body {
     max-width: 340px;
     height: 260px;
     perspective: 1200px;
+    transition: all 0.6s ease;
 }
-
 
 .card-inner {
     width: 100%;
@@ -129,6 +128,37 @@ body {
     line-height: 1.6;
 }
 
+/* ENVELOPE MODE */
+.card.envelope {
+    position: fixed !important;
+    bottom: 100px;
+    right: 20px;
+    transform: scale(0.35);
+    box-shadow: 0 0 25px #ff4d88;
+    animation: glowPulse 2s infinite;
+}
+
+@keyframes glowPulse {
+    0% { box-shadow: 0 0 15px #ff4d88; }
+    50% { box-shadow: 0 0 35px #ff99cc; }
+    100% { box-shadow: 0 0 15px #ff4d88; }
+}
+
+/* Sparkle */
+.sparkle {
+    position: fixed;
+    color: #ff4d88;
+    font-size: 18px;
+    animation: sparkleFall 1s ease forwards;
+}
+
+@keyframes sparkleFall {
+    to {
+        transform: translateY(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
 /* MUSIC BUTTON */
 .music-btn {
     position: absolute;
@@ -164,7 +194,7 @@ body {
 <h2 class="header">For My Wifeyy 💕</h2>
 <h3 class="days" id="daysCounter"></h3>
 
-<!-- ROW 1 -->
+<!-- ROWS -->
 <div class="row row1">
     <div class="polaroid"><img src="photo1.jpg"></div>
     <div class="polaroid"><img src="photo2.jpg"></div>
@@ -172,7 +202,6 @@ body {
     <div class="polaroid"><img src="photo4.jpg"></div>
 </div>
 
-<!-- ROW 2 -->
 <div class="row row2">
     <div class="polaroid"><img src="photo5.jpg"></div>
     <div class="polaroid"><img src="photo6.jpg"></div>
@@ -180,7 +209,6 @@ body {
     <div class="polaroid"><img src="photo12.jpg"></div>
 </div>
 
-<!-- ROW 3 -->
 <div class="row row3">
     <div class="polaroid"><img src="photo9.jpg"></div>
     <div class="polaroid"><img src="photo10.jpg"></div>
@@ -190,7 +218,7 @@ body {
 
 <!-- CARD -->
 <div class="card-container">
-    <div class="card" onclick="this.classList.toggle('open')">
+    <div class="card" id="mainCard" onclick="flipCard()">
         <div class="card-inner">
             <div class="card-front">
                 💌 Tap Me 💌
@@ -207,6 +235,16 @@ body {
                 Thank you for being my best friend… my person… my budddyyy 🥹💘<br><br>
 
                 I choose you. And I looveee you Always🥹❤️.
+                <br><br>
+                <button onclick="shrinkToEnvelope(event)" style="
+                    background:#ff4d88;
+                    color:white;
+                    border:none;
+                    padding:8px 15px;
+                    border-radius:20px;
+                    cursor:pointer;">
+                    Hide Letter 💕
+                </button>
                 </div>
             </div>
         </div>
@@ -225,6 +263,34 @@ document.querySelectorAll('.polaroid').forEach(p => {
     let randomRotate = (Math.random() * 10 - 5);
     p.style.transform = "rotate(" + randomRotate + "deg)";
 });
+
+/* Flip */
+function flipCard() {
+    const card = document.getElementById("mainCard");
+    if (card.classList.contains("envelope")) {
+        card.classList.remove("envelope");
+    }
+    card.classList.toggle("open");
+}
+
+/* Shrink to envelope */
+function shrinkToEnvelope(event) {
+    event.stopPropagation();
+    const card = document.getElementById("mainCard");
+    card.classList.remove("open");
+    card.classList.add("envelope");
+
+    // Sparkle burst
+    for (let i = 0; i < 15; i++) {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+        sparkle.innerHTML = "✨";
+        sparkle.style.left = (window.innerWidth - 80) + "px";
+        sparkle.style.bottom = "120px";
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1000);
+    }
+}
 
 /* Days Counter */
 const startDate = new Date("June 7, 2024");
