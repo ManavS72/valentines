@@ -10,53 +10,76 @@ body {
     margin: 0;
     font-family: 'Courier New', cursive;
     background: #ffe6f0;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 /* HEADER */
 .header {
+    position: absolute;
+    top: 15px;
+    width: 100%;
     text-align: center;
-    margin-top: 20px;
     color: #d63384;
+    z-index: 5;
 }
 
 .days {
+    position: absolute;
+    top: 45px;
+    width: 100%;
     text-align: center;
     color: #d63384;
-    margin-bottom: 20px;
+    font-size: 14px;
+    z-index: 5;
 }
 
-/* POLAROIDS */
-.gallery {
+/* DRIFTING ROWS */
+.row {
+    position: absolute;
+    width: 200%;
     display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    padding: 20px;
-    scroll-behavior: smooth;
+    gap: 25px;
 }
 
 .polaroid {
-    min-width: 140px;
+    width: 110px;
     background: white;
-    padding: 10px 10px 25px 10px;
+    padding: 8px 8px 18px 8px;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
 }
 
 .polaroid img {
     width: 100%;
-    border-radius: 5px;
+    border-radius: 6px;
+}
+
+/* Row Positions (spaced vertically for phone) */
+.row1 { top: 120px; animation: moveLeft 35s linear infinite; }
+.row2 { top: 290px; animation: moveRight 40s linear infinite; }
+.row3 { top: 460px; animation: moveLeft 45s linear infinite; }
+
+@keyframes moveLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes moveRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
 }
 
 /* CARD */
 .card-container {
-    display: flex;
-    justify-content: center;
-    margin: 30px 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
 }
 
 .card {
-    width: 90%;
+    width: 85vw;
     max-width: 320px;
     height: 220px;
     perspective: 1000px;
@@ -65,7 +88,7 @@ body {
 .card-inner {
     width: 100%;
     height: 100%;
-    transition: transform 0.8s;
+    transition: transform 0.9s;
     transform-style: preserve-3d;
     position: relative;
 }
@@ -78,14 +101,14 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    border-radius: 15px;
     box-shadow: 0 15px 25px rgba(0,0,0,0.3);
     backface-visibility: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     text-align: center;
+    padding: 20px;
 }
 
 .card-front {
@@ -98,28 +121,30 @@ body {
     background: white;
     transform: rotateY(180deg);
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 /* MUSIC BUTTON */
 .music-btn {
-    display: block;
-    margin: 20px auto;
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
     background: #ff4d88;
     color: white;
     padding: 10px 20px;
-    border-radius: 20px;
-    text-align: center;
-    width: fit-content;
+    border-radius: 25px;
     cursor: pointer;
+    z-index: 10;
 }
 
 /* FLOATING HEARTS */
 .heart {
     position: fixed;
     color: #ff4d88;
-    font-size: 16px;
+    font-size: 14px;
     animation: floatUp linear infinite;
+    z-index: 2;
 }
 
 @keyframes floatUp {
@@ -134,14 +159,28 @@ body {
 <h2 class="header">For My Wifeyy 💕</h2>
 <h3 class="days" id="daysCounter"></h3>
 
-<!-- SCROLLABLE POLAROIDS -->
-<div class="gallery">
+<!-- ROW 1 -->
+<div class="row row1">
     <div class="polaroid"><img src="photo1.jpg"></div>
     <div class="polaroid"><img src="photo2.jpg"></div>
     <div class="polaroid"><img src="photo3.jpg"></div>
     <div class="polaroid"><img src="photo4.jpg"></div>
+</div>
+
+<!-- ROW 2 -->
+<div class="row row2">
     <div class="polaroid"><img src="photo5.jpg"></div>
     <div class="polaroid"><img src="photo6.jpg"></div>
+    <div class="polaroid"><img src="photo7.jpg"></div>
+    <div class="polaroid"><img src="photo8.jpg"></div>
+</div>
+
+<!-- ROW 3 -->
+<div class="row row3">
+    <div class="polaroid"><img src="photo9.jpg"></div>
+    <div class="polaroid"><img src="photo10.jpg"></div>
+    <div class="polaroid"><img src="photo11.jpg"></div>
+    <div class="polaroid"><img src="photo12.jpg"></div>
 </div>
 
 <!-- CARD -->
@@ -153,7 +192,7 @@ body {
             </div>
             <div class="card-back">
                 <div>
-                <h3>Happy Valentine's Day Nish ❤️</h3>
+                <h3>Happy Valentine's Day My Love ❤️</h3>
                 Since 7 June 2024, my life has been brighter every single day.<br><br>
 
                 You’re funny in ways that heal me.  
@@ -164,7 +203,7 @@ body {
                 my person…  
                 my budddyyy 🥹💘<br><br>
 
-                I choose you. Always.
+                I choose you. And I love you Always🥹💘.
                 </div>
             </div>
         </div>
@@ -178,7 +217,13 @@ body {
 </audio>
 
 <script>
-/* DAYS COUNTER */
+/* Random rotation */
+document.querySelectorAll('.polaroid').forEach(p => {
+    let randomRotate = (Math.random() * 12 - 6);
+    p.style.transform = "rotate(" + randomRotate + "deg)";
+});
+
+/* Days Counter */
 const startDate = new Date("June 7, 2024");
 const today = new Date();
 const diffTime = today - startDate;
@@ -186,7 +231,7 @@ const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 document.getElementById("daysCounter").innerText =
 diffDays + " days with my wifeyy 💖";
 
-/* MUSIC */
+/* Music */
 function toggleMusic() {
     const music = document.getElementById("bgMusic");
     if (music.paused) {
@@ -196,7 +241,7 @@ function toggleMusic() {
     }
 }
 
-/* FLOATING HEARTS */
+/* Floating hearts */
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -206,7 +251,7 @@ function createHeart() {
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
 }
-setInterval(createHeart, 400);
+setInterval(createHeart, 500);
 </script>
 
 </body>
