@@ -3,74 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Valentine 💘</title>
+<title>For My Wifeyy 💘</title>
 
 <style>
 body {
     margin: 0;
-    font-family: 'Courier New', cursive;
     overflow: hidden;
+    font-family: 'Courier New', cursive;
     background: #ffe6f0;
 }
 
-/* Floating hearts */
+/* ===== FLOATING HEARTS ===== */
 .heart {
     position: absolute;
-    color: pink;
-    font-size: 20px;
-    animation: float 6s linear infinite;
+    color: #ff4d88;
+    font-size: 18px;
+    animation: floatUp linear infinite;
 }
 
-@keyframes float {
-    0% {transform: translateY(100vh) scale(1);}
-    100% {transform: translateY(-10vh) scale(1.5);}
+@keyframes floatUp {
+    0% { transform: translateY(100vh); opacity:1; }
+    100% { transform: translateY(-10vh); opacity:0; }
 }
 
-/* Slideshow */
-.slideshow {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.slideshow img {
+/* ===== POLAROID ROWS ===== */
+.row {
     position: absolute;
-    width: 220px;
-    border: 8px solid white;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    animation: fade 12s infinite;
-}
-
-@keyframes fade {
-    0% {opacity: 0;}
-    10% {opacity: 1;}
-    90% {opacity: 1;}
-    100% {opacity: 0;}
-}
-
-/* Card */
-.container {
+    width: 300%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    gap: 50px;
+}
+
+.polaroid {
+    width: 150px;
+    background: white;
+    padding: 10px 10px 25px 10px;
+    border-radius: 8px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+}
+
+.polaroid img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.row1 { top: 10%; animation: moveLeft 70s linear infinite; }
+.row2 { top: 40%; animation: moveRight 80s linear infinite; }
+.row3 { top: 70%; animation: moveLeft 90s linear infinite; }
+
+@keyframes moveLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes moveRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* ===== CARD ===== */
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .card {
-    width: 300px;
-    height: 200px;
+    width: 340px;
+    height: 240px;
     perspective: 1000px;
 }
 
 .card-inner {
     width: 100%;
     height: 100%;
-    position: relative;
     transition: transform 1s;
     transform-style: preserve-3d;
     cursor: pointer;
+    position: relative;
 }
 
 .card.open .card-inner {
@@ -81,62 +93,130 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
     backface-visibility: hidden;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
 }
 
 .card-front {
     background: #ff4d88;
     color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 22px;
 }
 
 .card-back {
     background: white;
     transform: rotateY(180deg);
-    padding: 20px;
     font-size: 14px;
-    text-align: center;
+    line-height: 1.5;
+}
+
+/* ===== MUSIC BUTTON ===== */
+.music-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: #ff4d88;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* ===== CONFETTI ===== */
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="slideshow">
-    <!-- REPLACE these image links with your own uploaded images -->
-    <img src="photo1.jpg" style="top:10%; left:10%; animation-delay:0s;">
-    <img src="photo2.jpg" style="top:50%; left:60%; animation-delay:4s;">
-    <img src="photo3.jpg" style="top:20%; left:70%; animation-delay:8s;">
+<h2 style="position:absolute; top:15px; width:100%; text-align:center; color:#ff4d88;">
+For My Wifeyy 💕
+</h2>
+
+<h3 id="daysCounter" style="position:absolute; top:45px; width:100%; text-align:center; color:#ff4d88;"></h3>
+
+<!-- ===== POLAROID ROWS ===== -->
+<div class="row row1" id="row1">
+    <div class="polaroid"><img src="photo1.jpg"></div>
+    <div class="polaroid"><img src="photo2.jpg"></div>
+    <div class="polaroid"><img src="photo3.jpg"></div>
+    <div class="polaroid"><img src="photo4.jpg"></div>
 </div>
 
+<div class="row row2" id="row2">
+    <div class="polaroid"><img src="photo5.jpg"></div>
+    <div class="polaroid"><img src="photo6.jpg"></div>
+    <div class="polaroid"><img src="photo7.jpg"></div>
+    <div class="polaroid"><img src="photo8.jpg"></div>
+</div>
+
+<div class="row row3" id="row3">
+    <div class="polaroid"><img src="photo9.jpg"></div>
+    <div class="polaroid"><img src="photo10.jpg"></div>
+    <div class="polaroid"><img src="photo11.jpg"></div>
+    <div class="polaroid"><img src="photo12.jpg"></div>
+</div>
+
+<!-- ===== CARD ===== -->
 <div class="container">
-    <div class="card" onclick="this.classList.toggle('open')">
+    <div class="card" onclick="openCard(this)">
         <div class="card-inner">
             <div class="card-front">
-                💌 Click Me 💌
+                💌 Tap Me 💌
             </div>
             <div class="card-back">
-                <h3>Happy Valentine's Day ❤️</h3>
-                <p>
-                From the moment I met you,<br>
-                everything felt different.<br><br>
-                You make my world softer,<br>
-                brighter, and way more beautiful.<br><br>
-                Thank you for loving me.<br>
-                I choose you. Always. 💘
-                </p>
+                <div>
+                <h3>Happy Valentine's Day Nish ❤️</h3>
+                Since 7 June 2024, my life has been brighter every single day.<br><br>
+
+                You’re funny in ways that heal me.  
+                You’re beautiful in ways that distract me.  
+                You’re caring in ways that make me feel safe.<br><br>
+
+                Thank you for being my best friend…  
+                my person…  
+                my budddyyy 🥹💘<br><br>
+
+                I choose you. Always.
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="music-btn" onclick="toggleMusic()">🎵 Play Music</div>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-/* Floating hearts generator */
+/* Random Polaroid Rotation */
+document.querySelectorAll('.polaroid').forEach(p => {
+    let randomRotate = (Math.random() * 10 - 5);
+    p.style.transform = "rotate(" + randomRotate + "deg)";
+});
+
+/* Floating hearts */
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -144,14 +224,46 @@ function createHeart() {
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
     document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 300);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 6000);
+/* Days Counter */
+const startDate = new Date("June 7, 2024");
+const today = new Date();
+const diffTime = today - startDate;
+const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+document.getElementById("daysCounter").innerText =
+diffDays + " days with my wifeyy 💖";
+
+/* Music Toggle */
+function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+    const btn = document.querySelector(".music-btn");
+    if (music.paused) {
+        music.play();
+        btn.innerText = "⏸ Pause Music";
+    } else {
+        music.pause();
+        btn.innerText = "🎵 Play Music";
+    }
 }
 
-setInterval(createHeart, 300);
+/* Confetti */
+function openCard(card) {
+    card.classList.toggle("open");
+    for (let i = 0; i < 80; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.background =
+            ["#ff4d88","#ff99cc","#ffccdd","#ff0066"][Math.floor(Math.random()*4)];
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
 </script>
 
 </body>
 </html>
+
