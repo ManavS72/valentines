@@ -8,39 +8,39 @@
 <style>
 body {
     margin: 0;
-    overflow: hidden;
     font-family: 'Courier New', cursive;
     background: #ffe6f0;
+    overflow-x: hidden;
 }
 
-/* ===== FLOATING HEARTS ===== */
-.heart {
-    position: absolute;
-    color: #ff4d88;
-    font-size: 18px;
-    animation: floatUp linear infinite;
+/* HEADER */
+.header {
+    text-align: center;
+    margin-top: 20px;
+    color: #d63384;
 }
 
-@keyframes floatUp {
-    0% { transform: translateY(100vh); opacity:1; }
-    100% { transform: translateY(-10vh); opacity:0; }
+.days {
+    text-align: center;
+    color: #d63384;
+    margin-bottom: 20px;
 }
 
-/* ===== POLAROID ROWS ===== */
-.row {
-    position: absolute;
-    width: 300%;
+/* POLAROIDS */
+.gallery {
     display: flex;
-    gap: 50px;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px;
+    scroll-behavior: smooth;
 }
 
 .polaroid {
-    width: 150px;
+    min-width: 140px;
     background: white;
     padding: 10px 10px 25px 10px;
-    border-radius: 8px;
-    box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-    transition: transform 0.3s;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 .polaroid img {
@@ -48,40 +48,25 @@ body {
     border-radius: 5px;
 }
 
-.row1 { top: 10%; animation: moveLeft 70s linear infinite; }
-.row2 { top: 40%; animation: moveRight 80s linear infinite; }
-.row3 { top: 70%; animation: moveLeft 90s linear infinite; }
-
-@keyframes moveLeft {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-@keyframes moveRight {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
-}
-
-/* ===== CARD ===== */
-.container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+/* CARD */
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
 }
 
 .card {
-    width: 340px;
-    height: 240px;
+    width: 90%;
+    max-width: 320px;
+    height: 220px;
     perspective: 1000px;
 }
 
 .card-inner {
     width: 100%;
     height: 100%;
-    transition: transform 1s;
+    transition: transform 0.8s;
     transform-style: preserve-3d;
-    cursor: pointer;
     position: relative;
 }
 
@@ -94,19 +79,19 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 12px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.3);
     backface-visibility: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
     padding: 20px;
+    text-align: center;
 }
 
 .card-front {
     background: #ff4d88;
     color: white;
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .card-back {
@@ -116,69 +101,52 @@ body {
     line-height: 1.5;
 }
 
-/* ===== MUSIC BUTTON ===== */
+/* MUSIC BUTTON */
 .music-btn {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+    display: block;
+    margin: 20px auto;
     background: #ff4d88;
     color: white;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-radius: 20px;
+    text-align: center;
+    width: fit-content;
     cursor: pointer;
-    font-size: 14px;
 }
 
-/* ===== CONFETTI ===== */
-.confetti {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    animation: fall 3s linear forwards;
+/* FLOATING HEARTS */
+.heart {
+    position: fixed;
+    color: #ff4d88;
+    font-size: 16px;
+    animation: floatUp linear infinite;
 }
 
-@keyframes fall {
-    to {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-    }
+@keyframes floatUp {
+    0% { transform: translateY(100vh); opacity:1; }
+    100% { transform: translateY(-10vh); opacity:0; }
 }
 </style>
 </head>
 
 <body>
 
-<h2 style="position:absolute; top:15px; width:100%; text-align:center; color:#ff4d88;">
-For My Wifeyy 💕
-</h2>
+<h2 class="header">For My Wifeyy 💕</h2>
+<h3 class="days" id="daysCounter"></h3>
 
-<h3 id="daysCounter" style="position:absolute; top:45px; width:100%; text-align:center; color:#ff4d88;"></h3>
-
-<!-- ===== POLAROID ROWS ===== -->
-<div class="row row1" id="row1">
+<!-- SCROLLABLE POLAROIDS -->
+<div class="gallery">
     <div class="polaroid"><img src="photo1.jpg"></div>
     <div class="polaroid"><img src="photo2.jpg"></div>
     <div class="polaroid"><img src="photo3.jpg"></div>
     <div class="polaroid"><img src="photo4.jpg"></div>
-</div>
-
-<div class="row row2" id="row2">
     <div class="polaroid"><img src="photo5.jpg"></div>
     <div class="polaroid"><img src="photo6.jpg"></div>
-    <div class="polaroid"><img src="photo7.jpg"></div>
-    <div class="polaroid"><img src="photo8.jpg"></div>
 </div>
 
-<div class="row row3" id="row3">
-    <div class="polaroid"><img src="photo9.jpg"></div>
-    <div class="polaroid"><img src="photo10.jpg"></div>
-    <div class="polaroid"><img src="photo11.jpg"></div>
-    <div class="polaroid"><img src="photo12.jpg"></div>
-</div>
-
-<!-- ===== CARD ===== -->
-<div class="container">
-    <div class="card" onclick="openCard(this)">
+<!-- CARD -->
+<div class="card-container">
+    <div class="card" onclick="this.classList.toggle('open')">
         <div class="card-inner">
             <div class="card-front">
                 💌 Tap Me 💌
@@ -203,20 +171,32 @@ For My Wifeyy 💕
     </div>
 </div>
 
-<div class="music-btn" onclick="toggleMusic()">🎵 Play Music</div>
+<div class="music-btn" onclick="toggleMusic()">🎵 Play Jashn-E-Bahaara</div>
 
 <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* Random Polaroid Rotation */
-document.querySelectorAll('.polaroid').forEach(p => {
-    let randomRotate = (Math.random() * 10 - 5);
-    p.style.transform = "rotate(" + randomRotate + "deg)";
-});
+/* DAYS COUNTER */
+const startDate = new Date("June 7, 2024");
+const today = new Date();
+const diffTime = today - startDate;
+const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+document.getElementById("daysCounter").innerText =
+diffDays + " days with my wifeyy 💖";
 
-/* Floating hearts */
+/* MUSIC */
+function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+
+/* FLOATING HEARTS */
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -226,44 +206,8 @@ function createHeart() {
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
 }
-setInterval(createHeart, 300);
-
-/* Days Counter */
-const startDate = new Date("June 7, 2024");
-const today = new Date();
-const diffTime = today - startDate;
-const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-document.getElementById("daysCounter").innerText =
-diffDays + " days with my wifeyy 💖";
-
-/* Music Toggle */
-function toggleMusic() {
-    const music = document.getElementById("bgMusic");
-    const btn = document.querySelector(".music-btn");
-    if (music.paused) {
-        music.play();
-        btn.innerText = "⏸ Pause Music";
-    } else {
-        music.pause();
-        btn.innerText = "🎵 Play Music";
-    }
-}
-
-/* Confetti */
-function openCard(card) {
-    card.classList.toggle("open");
-    for (let i = 0; i < 80; i++) {
-        const confetti = document.createElement("div");
-        confetti.classList.add("confetti");
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.background =
-            ["#ff4d88","#ff99cc","#ffccdd","#ff0066"][Math.floor(Math.random()*4)];
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 3000);
-    }
-}
+setInterval(createHeart, 400);
 </script>
 
 </body>
 </html>
-
