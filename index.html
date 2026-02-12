@@ -10,7 +10,7 @@ body {
     margin: 0;
     font-family: 'Courier New', cursive;
     background: #ffe6f0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 /* HEADER */
@@ -36,13 +36,14 @@ body {
 /* DRIFTING ROWS */
 .row {
     position: absolute;
-    width: 200%;
     display: flex;
-    gap: 25px;
+    gap: 20px;
+    white-space: nowrap;
 }
 
 .polaroid {
-    width: 110px;
+    width: 105px;
+    flex-shrink: 0;
     background: white;
     padding: 8px 8px 18px 8px;
     border-radius: 10px;
@@ -54,10 +55,10 @@ body {
     border-radius: 6px;
 }
 
-/* Row Positions (spaced vertically for phone) */
-.row1 { top: 120px; animation: moveLeft 35s linear infinite; }
-.row2 { top: 290px; animation: moveRight 40s linear infinite; }
-.row3 { top: 460px; animation: moveLeft 45s linear infinite; }
+/* Row Positions */
+.row1 { top: 120px; animation: moveLeft 30s linear infinite; }
+.row2 { top: 270px; animation: moveRight 35s linear infinite; }
+.row3 { top: 420px; animation: moveLeft 40s linear infinite; }
 
 @keyframes moveLeft {
     0% { transform: translateX(0); }
@@ -72,16 +73,16 @@ body {
 /* CARD */
 .card-container {
     position: absolute;
-    top: 50%;
+    top: 58%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
 }
 
 .card {
-    width: 85vw;
-    max-width: 320px;
-    height: 220px;
+    width: 90vw;
+    max-width: 340px;
+    height: 260px;
     perspective: 1000px;
 }
 
@@ -120,7 +121,7 @@ body {
 .card-back {
     background: white;
     transform: rotateY(180deg);
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.6;
 }
 
@@ -192,18 +193,16 @@ body {
             </div>
             <div class="card-back">
                 <div>
-                <h3>Happy Valentine's Day My Love ❤️</h3>
+                <h3>Happy Valentine's Day Nish ❤️</h3>
                 Since 7 June 2024, my life has been brighter every single day.<br><br>
 
                 You’re funny in ways that heal me.  
                 You’re beautiful in ways that distract me.  
                 You’re caring in ways that make me feel safe.<br><br>
 
-                Thank you for being my best friend…  
-                my person…  
-                my budddyyy 🥹💘<br><br>
+                Thank you for being my best friend… my person… my budddyyy 🥹💘<br><br>
 
-                I choose you. And I love you Always🥹💘.
+                I choose you. Always.
                 </div>
             </div>
         </div>
@@ -217,9 +216,9 @@ body {
 </audio>
 
 <script>
-/* Random rotation */
+/* Random tilt */
 document.querySelectorAll('.polaroid').forEach(p => {
-    let randomRotate = (Math.random() * 12 - 6);
+    let randomRotate = (Math.random() * 10 - 5);
     p.style.transform = "rotate(" + randomRotate + "deg)";
 });
 
